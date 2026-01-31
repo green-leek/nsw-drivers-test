@@ -23,7 +23,8 @@
     // ─── UI ──────────────────────────────────────────
     const btn = document.createElement('button');
     btn.textContent = 'Start Scraper';
-    btn.style.cssText = `position:fixed;top:16px;right:16px;z-index:100001;padding:12px 20px;font-size:17px;font-weight:bold;background:#c41e3a;color:white;border:none;border-radius:8px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.4);`;
+    btn.style.cssText = `position:fixed;top:16px;right:16px;z-index:100001;padding:12px 20px;font-size:17px;font-weight:bold;background:#c41e3a;color:white;border:none;border-radius:8px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.4); display:none;`;
+
     if (!GM_getValue('S.active') && isLocationPage()) { document.body.appendChild(btn)};
 
     const status = document.createElement('div');
@@ -284,5 +285,6 @@
             setTimeout(processNext, 1800);
         }
     });
+    btn.style.display = 'block';
 
 })();
