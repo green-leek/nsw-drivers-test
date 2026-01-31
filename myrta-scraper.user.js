@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NSW Driving Test Availability Scraper (JSON)
 // @namespace    https://github.com/users/green-leek
-// @version      0.9
+// @version      0.91
 // @description  Automatically collects available driving test timeslots from myrta.com after login. Saves results in bookings.json format (compatible with NSW Drivers Test - Find Available Test Times).
 // @author       green-leek, Scraper logic from teehee567
 // @match        https://www.myrta.com/wps/portal/extvp/myrta/licence/tbs/*
@@ -24,7 +24,7 @@
     const btn = document.createElement('button');
     btn.textContent = 'Start Scraper';
     btn.style.cssText = `position:fixed;top:16px;right:16px;z-index:100001;padding:12px 20px;font-size:17px;font-weight:bold;background:#c41e3a;color:white;border:none;border-radius:8px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.4);`;
-    document.body.appendChild(btn);
+    if (!GM_getValue('S.active') && isLocationPage()) { document.body.appendChild(btn)};
 
     const status = document.createElement('div');
     status.style.cssText = `position:fixed;top:80px;right:16px;z-index:100000;padding:14px;background:rgba(0,0,0,0.85);color:#eee;border-radius:8px;font-family:Arial,sans-serif;font-size:15px;max-width:380px;line-height:1.4;display:none;`;
@@ -119,7 +119,7 @@
     };
 
     function processNext() {
-        if (!GM_getValue(S.active, false)) return;
+        if (!GM_getValue(S.active, false) || (!(isLocationPage() || isSlotsPage()))) return;
 
         let idx = GM_getValue(S.idx, 0);
         const locs = GM_getValue(S.locs, []);
